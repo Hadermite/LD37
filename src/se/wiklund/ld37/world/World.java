@@ -16,6 +16,7 @@ public class World {
 
 	private Tile[] tiles = new Tile[SIZE * SIZE];
 	private List<Entity> entites = new ArrayList<>();
+	private Player player;
 
 	public World() {
 		for (int x = 0; x < SIZE; x++) {
@@ -24,7 +25,7 @@ public class World {
 			}
 		}
 
-		Player player = new Player(this);
+		player = new Player(this);
 		entites.add(player);
 	}
 
@@ -43,8 +44,10 @@ public class World {
 		for (Entity entity : entites)
 			entity.render(g);
 	}
-	
+
 	public void setTile(Tile tile, int xPos, int yPos) {
+		if (xPos < 0 || xPos >= SIZE || yPos < 0 || yPos >= SIZE)
+			return;
 		tiles[xPos + yPos * SIZE] = tile;
 	}
 
@@ -57,5 +60,9 @@ public class World {
 				return tile;
 		}
 		return null;
+	}
+	
+	public Player getPlayer() {
+		return player;
 	}
 }

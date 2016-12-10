@@ -3,6 +3,7 @@ package se.wiklund.ld37;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
 import se.wiklund.ld37.input.Keyboard;
@@ -17,12 +18,13 @@ public class Main implements Runnable {
 	public static final Dimension SCREEN_SIZE = new Dimension(RENDER_SIZE.width * SCALE, RENDER_SIZE.height * SCALE);
 	public static final String NAME = "LD37 by Hadermite";
 	
-	private boolean running;
-	private Screen screen;
-	private JFrame frame;
-	private Thread thread;
+	private static boolean running;
+	private static Screen screen;
+	private static JFrame frame;
+	private static Thread thread;
+	private static boolean reset;
 	
-	public void start() {
+	public static void start() {
 		if (running) return;
 		running = true;
 		
@@ -40,13 +42,19 @@ public class Main implements Runnable {
 		
 		screen.addKeyListener(new Keyboard());
 		
-		thread = new Thread(this, "Game");
+		thread = new Thread(new Main(), "Game");
 		thread.start();
+	}
+	
+	public static void onPlayerDie() {
+		screen.deleteWorld();
+		JOptionPane.showMessageDialog(null, "You died!");
+		screen.createWorld();
+		reset = true;
 	}
 	
 	@Override
 	public void run() {
-		
 		double TICK_INTERVAL = 1000000000 / TICKRATE;
 		
 		long lastTime = System.nanoTime();
@@ -59,7 +67,11 @@ public class Main implements Runnable {
 			long now = System.nanoTime();
 			delta += now - lastTime;
 			lastTime = now;
-			
+			if (reset) {
+				reset = false;
+				delta = 0;
+				continue;
+			}
 			while (delta >= TICK_INTERVAL) {
 				delta -= TICK_INTERVAL;
 				
@@ -77,14 +89,22 @@ public class Main implements Runnable {
 				frames = 0;
 			}
 		}
+		
+		try {
+			thread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		System.exit(0);
 	}
 	
-	public void stop() {
+	public static void stop() {
 		if (!running) return;
 		running = false;
 	}
 	
 	public static void main(String[] args) {
-		new Main().start();
+		start();
 	}
 }
