@@ -20,7 +20,7 @@ public class World {
 	public World() {
 		for (int x = 0; x < SIZE; x++) {
 			for (int y = 0; y < SIZE; y++) {
-				tiles[x + y * SIZE] = new Tile(TileType.GRASS, x, y);
+				tiles[x + y * SIZE] = new Tile(TileType.GRASS, x, y, this);
 			}
 		}
 
@@ -42,6 +42,10 @@ public class World {
 
 		for (Entity entity : entites)
 			entity.render(g);
+	}
+	
+	public void setTile(Tile tile, int xPos, int yPos) {
+		tiles[xPos + yPos * SIZE] = tile;
 	}
 
 	public Tile getTileUnderFoot(Entity entity) {

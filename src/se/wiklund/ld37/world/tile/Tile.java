@@ -2,17 +2,21 @@ package se.wiklund.ld37.world.tile;
 
 import java.awt.Graphics2D;
 
+import se.wiklund.ld37.world.World;
+
 public class Tile {
 	
 	public static final int SIZE = 16;
 	
-	private TileType type;
-	private int xPos, yPos;
+	protected TileType type;
+	protected int xPos, yPos;
+	protected World world;
 	
-	public Tile(TileType type, int xPos, int yPos) {
+	public Tile(TileType type, int xPos, int yPos, World world) {
 		this.type = type;
 		this.xPos = xPos;
 		this.yPos = yPos;
+		this.world = world;
 	}
 	
 	public void tick() {
@@ -33,5 +37,9 @@ public class Tile {
 	
 	public int getyPos() {
 		return yPos;
+	}
+	
+	public TileType getType() {
+		return type;
 	}
 }

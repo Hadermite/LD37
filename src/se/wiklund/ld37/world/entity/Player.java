@@ -5,6 +5,7 @@ import com.sun.glass.events.KeyEvent;
 import se.wiklund.ld37.Assets;
 import se.wiklund.ld37.input.Keyboard;
 import se.wiklund.ld37.world.World;
+import se.wiklund.ld37.world.tile.SeededTile;
 import se.wiklund.ld37.world.tile.Tile;
 import se.wiklund.ld37.world.tile.TileType;
 
@@ -39,7 +40,13 @@ public class Player extends Entity {
 		}
 		
 		if (Keyboard.isKeyPressed(KeyEvent.VK_SPACE)) {
-			
+			Tile tile = world.getTileUnderFoot(this);
+			if (tile.getType() == TileType.FARMLAND) {
+				
+				int xPos = tile.getxPos();
+				int yPos = tile.getyPos();
+				world.setTile(new SeededTile(xPos, yPos, world), xPos, yPos);
+			}
 		}
 	}
 }

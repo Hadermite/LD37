@@ -11,6 +11,7 @@ import se.wiklund.ld37.world.tile.Tile;
 
 public class Main implements Runnable {
 	
+	public static final int TICKRATE = 60;
 	public static final int SCALE = 4;
 	public static final Dimension RENDER_SIZE = new Dimension(Tile.SIZE * World.SIZE, Tile.SIZE * World.SIZE);
 	public static final Dimension SCREEN_SIZE = new Dimension(RENDER_SIZE.width * SCALE, RENDER_SIZE.height * SCALE);
@@ -46,7 +47,7 @@ public class Main implements Runnable {
 	@Override
 	public void run() {
 		
-		double TICK_INTERVAL = 1000000000 / 60;
+		double TICK_INTERVAL = 1000000000 / TICKRATE;
 		
 		long lastTime = System.nanoTime();
 		long timer = System.currentTimeMillis();
