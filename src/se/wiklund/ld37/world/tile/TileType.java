@@ -6,7 +6,8 @@ import se.wiklund.ld37.Assets;
 
 public enum TileType {
 	
-	GRASS("Grass", Assets.TILE_GRASS);
+	GRASS("Grass", Assets.TILE_GRASS),
+	FARMLAND("Farmland", Assets.TILE_FARMLAND);
 	
 	private String name;
 	private BufferedImage texture;

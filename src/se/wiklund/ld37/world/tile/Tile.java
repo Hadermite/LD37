@@ -1,6 +1,5 @@
 package se.wiklund.ld37.world.tile;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class Tile {
@@ -22,7 +21,17 @@ public class Tile {
 	
 	public void render(Graphics2D g) {
 		g.drawImage(type.getTexture(), xPos * SIZE, yPos * SIZE, SIZE, SIZE, null);
-		g.setColor(Color.YELLOW);
-		g.drawRect(xPos * SIZE, yPos * SIZE, SIZE, SIZE);
+	}
+	
+	public void setType(TileType type) {
+		this.type = type;
+	}
+	
+	public int getxPos() {
+		return xPos;
+	}
+	
+	public int getyPos() {
+		return yPos;
 	}
 }

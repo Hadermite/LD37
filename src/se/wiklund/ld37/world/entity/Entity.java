@@ -4,8 +4,11 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import se.wiklund.ld37.Main;
+import se.wiklund.ld37.world.World;
 
 public class Entity {
+	
+	protected World world;
 	
 	private BufferedImage texture;
 	private double x, y;
@@ -16,14 +19,15 @@ public class Entity {
 	private double velX, velY;
 	private boolean movedX, movedY;
 	
-	public Entity(BufferedImage texture, double x, double y, int width, int height) {
+	public Entity(BufferedImage texture, double x, double y, int width, int height, World world) {
 		this.texture = texture;
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		acceleration = 1.5;
-		friction = 1.5;
+		this.world = world;
+		acceleration = 2;
+		friction = 2;
 		maxSpeed = 3;
 	}
 	
@@ -106,5 +110,21 @@ public class Entity {
 	
 	public void setMaxSpeed(double maxSpeed) {
 		this.maxSpeed = maxSpeed;
+	}
+	
+	public double getX() {
+		return x;
+	}
+	
+	public double getY() {
+		return y;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
 	}
 }
