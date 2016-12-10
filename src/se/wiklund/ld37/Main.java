@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
+import se.wiklund.ld37.input.Keyboard;
 import se.wiklund.ld37.world.World;
 import se.wiklund.ld37.world.tile.Tile;
 
@@ -29,11 +30,14 @@ public class Main implements Runnable {
 		
 		frame = new JFrame(NAME);
 		frame.add(screen);
+		frame.pack();
 		frame.setSize(SCREEN_SIZE.width, SCREEN_SIZE.height + 20);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		
+		screen.addKeyListener(new Keyboard());
 		
 		thread = new Thread(this, "Game");
 		thread.start();
