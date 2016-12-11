@@ -49,6 +49,7 @@ public class ProgressBar {
 	
 	public void setProgress(double progress) {
 		this.progress = progress;
+		if (this.progress > max) this.progress = max;
 	}
 	
 	public double getProgress() {

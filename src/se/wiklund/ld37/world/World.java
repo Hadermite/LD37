@@ -1,10 +1,13 @@
 package se.wiklund.ld37.world;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
+import se.wiklund.ld37.Main;
 import se.wiklund.ld37.world.entity.Entity;
 import se.wiklund.ld37.world.entity.Player;
 import se.wiklund.ld37.world.tile.Tile;
@@ -13,10 +16,12 @@ import se.wiklund.ld37.world.tile.TileType;
 public class World {
 
 	public static final int SIZE = 10;
-
+	private static final Font FONT_HUD = new Font(Font.SANS_SERIF, Font.PLAIN, 6);
+	
 	private Tile[] tiles = new Tile[SIZE * SIZE];
 	private List<Entity> entites = new ArrayList<>();
 	private Player player;
+	private int survivalTime;
 
 	public World() {
 		for (int x = 0; x < SIZE; x++) {
@@ -35,6 +40,8 @@ public class World {
 
 		for (Entity entity : entites)
 			entity.tick();
+		
+		survivalTime++;
 	}
 
 	public void render(Graphics2D g) {
@@ -43,6 +50,11 @@ public class World {
 
 		for (Entity entity : entites)
 			entity.render(g);
+		
+		g.setColor(Color.BLACK);
+		g.setFont(FONT_HUD);
+		g.drawString("Amount of Food: " + player.getInventory().getFoodCount(), 2, 25);
+		g.drawString("Seconds Survived: " + survivalTime / Main.TICKRATE, 2, 35);
 	}
 
 	public void setTile(Tile tile, int xPos, int yPos) {
@@ -64,5 +76,9 @@ public class World {
 	
 	public Player getPlayer() {
 		return player;
+	}
+	
+	public int getSurvivalTime() {
+		return survivalTime;
 	}
 }

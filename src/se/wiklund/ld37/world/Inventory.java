@@ -2,6 +2,7 @@ package se.wiklund.ld37.world;
 
 public class Inventory {
 	
+	//Logs was never implemented sadly :(
 	private int foodCount, logsCount;
 	
 	public void addFood(int count) {

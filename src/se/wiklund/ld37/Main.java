@@ -3,7 +3,6 @@ package se.wiklund.ld37;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
 import se.wiklund.ld37.input.Keyboard;
@@ -22,7 +21,6 @@ public class Main implements Runnable {
 	private static Screen screen;
 	private static JFrame frame;
 	private static Thread thread;
-	private static boolean reset;
 	
 	public static void start() {
 		if (running) return;
@@ -48,9 +46,6 @@ public class Main implements Runnable {
 	
 	public static void onPlayerDie() {
 		screen.deleteWorld();
-		JOptionPane.showMessageDialog(null, "You died!");
-		screen.createWorld();
-		reset = true;
 	}
 	
 	@Override
@@ -67,11 +62,7 @@ public class Main implements Runnable {
 			long now = System.nanoTime();
 			delta += now - lastTime;
 			lastTime = now;
-			if (reset) {
-				reset = false;
-				delta = 0;
-				continue;
-			}
+
 			while (delta >= TICK_INTERVAL) {
 				delta -= TICK_INTERVAL;
 				

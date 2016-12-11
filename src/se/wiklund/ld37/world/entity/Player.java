@@ -95,4 +95,8 @@ public class Player extends Entity {
 	public ProgressBar getHunger() {
 		return hunger;
 	}
+	
+	public Inventory getInventory() {
+		return inventory;
+	}
 }
