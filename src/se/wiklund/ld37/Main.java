@@ -15,7 +15,7 @@ public class Main implements Runnable {
 	public static final int SCALE = 4;
 	public static final Dimension RENDER_SIZE = new Dimension(Tile.SIZE * World.SIZE, Tile.SIZE * World.SIZE);
 	public static final Dimension SCREEN_SIZE = new Dimension(RENDER_SIZE.width * SCALE, RENDER_SIZE.height * SCALE);
-	public static final String NAME = "LD37 by Hadermite";
+	public static final String NAME = "The Locked Up Survivor";
 	
 	private static boolean running;
 	private static Screen screen;
@@ -40,7 +40,7 @@ public class Main implements Runnable {
 		
 		screen.addKeyListener(new Keyboard());
 		
-		thread = new Thread(new Main(), "Game");
+		thread = new Thread(new Main(), NAME);
 		thread.start();
 	}
 	
