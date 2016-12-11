@@ -19,6 +19,7 @@ public class Player extends Entity {
 
 	private Inventory inventory;
 	private ProgressBar hunger;
+	private double multiplier = 1;
 
 	public Player(World world) {
 		super(Assets.ENTITY_PLAYER, Tile.SIZE * 3, Tile.SIZE * 3, 16, 32, world);
@@ -50,7 +51,7 @@ public class Player extends Entity {
 
 		if (Keyboard.isKeyPressed(KeyEvent.VK_F)) {
 			Tile tile = world.getTileUnderFoot(this);
-			if (tile != null)
+			if (tile != null && tile.getType() == TileType.GRASS)
 				world.getTileUnderFoot(this).setType(TileType.FARMLAND);
 		}
 
@@ -74,12 +75,14 @@ public class Player extends Entity {
 				inventory.removeFood(1);
 			}
 		}
-
-		hunger.changeProgress(-0.006);
+		
+		hunger.changeProgress(-0.005 * multiplier);
 
 		if (hunger.getProgress() <= 0) {
 			Main.onPlayerDie();
 		}
+		
+		multiplier += 0.001;
 	}
 
 	@Override

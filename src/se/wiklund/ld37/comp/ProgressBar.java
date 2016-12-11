@@ -31,7 +31,8 @@ public class ProgressBar {
 	
 	public void render(Graphics2D g) {
 		int foregroundWidth = (int) (progress * pixelsPerProgress);
-		if (width < 0) width = 0;
+		if (foregroundWidth < 0) foregroundWidth = 0;
+		if (foregroundWidth > delta * pixelsPerProgress) foregroundWidth = (int) (delta * pixelsPerProgress);
 		g.setColor(colorBackground);
 		g.fillRect(x, y, width, height);
 		g.setColor(colorForeground);
